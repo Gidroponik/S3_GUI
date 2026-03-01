@@ -1,0 +1,105 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.25'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Wails
+        run: go install github.com/wailsapp/wails/v2/cmd/wails@latest
+
+      - name: Build
+        run: wails build
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: S3BucketGUI-windows
+          path: build/bin/S3BucketGUI.exe
+
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.25'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Wails
+        run: go install github.com/wailsapp/wails/v2/cmd/wails@latest
+
+      - name: Build
+        run: wails build -platform darwin/universal
+
+      - name: Create DMG
+        run: |
+          brew install create-dmg
+          create-dmg \
+            --volname "S3 Bucket Manager" \
+            --volicon "build/appicon.png" \
+            --window-size 600 400 \
+            --icon-size 128 \
+            --icon "S3BucketGUI.app" 150 200 \
+            --app-drop-link 450 200 \
+            --no-internet-enable \
+            "S3BucketGUI.dmg" \
+            "build/bin/S3BucketGUI.app" || true
+          # create-dmg returns non-zero even on success sometimes
+          ls -la S3BucketGUI.dmg
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: S3BucketGUI-macos
+          path: S3BucketGUI.dmg
+
+  release:
+    needs: [build-windows, build-macos]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: S3BucketGUI-windows
+          path: artifacts/windows
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: S3BucketGUI-macos
+          path: artifacts/macos
+
+      - name: Rename artifacts
+        run: |
+          TAG=${GITHUB_REF#refs/tags/}
+          mv artifacts/windows/S3BucketGUI.exe "artifacts/S3BucketGUI-${TAG}-windows-amd64.exe"
+          mv artifacts/macos/S3BucketGUI.dmg "artifacts/S3BucketGUI-${TAG}-macos-universal.dmg"
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            artifacts/S3BucketGUI-*
