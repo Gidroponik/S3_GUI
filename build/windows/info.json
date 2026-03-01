@@ -1,0 +1,15 @@
+{
+  "fixed": {
+    "file_version": "1.0.0.0"
+  },
+  "info": {
+    "0000": {
+      "ProductVersion": "1.0.0",
+      "CompanyName": "S3BucketGUI",
+      "FileDescription": "S3 Bucket Manager",
+      "LegalCopyright": "Copyright 2026",
+      "ProductName": "S3BucketGUI",
+      "Comments": "Desktop S3 Bucket Manager"
+    }
+  }
+}

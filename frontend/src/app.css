@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+@theme {
+  --color-surface-950: #05060a;
+  --color-surface-900: #0a0e18;
+  --color-surface-850: #0f1420;
+  --color-surface-800: #161c2e;
+  --color-surface-750: #1e2640;
+  --color-surface-700: #283352;
+  --color-surface-600: #384768;
+  --color-surface-500: #5a6d90;
+  --color-surface-400: #8999b8;
+  --color-surface-300: #b8c5da;
+  --color-surface-200: #d6deec;
+  --color-surface-100: #eef1f7;
+  --color-accent: #7c5cfc;
+  --color-accent-hover: #9b82fd;
+  --color-accent-dim: #6344e8;
+  --color-accent-glow: rgba(124, 92, 252, 0.15);
+  --color-accent-glow-strong: rgba(124, 92, 252, 0.30);
+  --color-danger: #ff4d6a;
+  --color-danger-hover: #ff7a91;
+  --color-danger-dim: #e6234a;
+  --color-success: #2ee6a8;
+  --color-success-dim: #059669;
+  --color-warning: #fbbf24;
+}
+
+@layer base {
+  html, body, #app {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background-color: var(--color-surface-900);
+    color: var(--color-surface-300);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    user-select: none;
+    letter-spacing: 0.01em;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-surface-700);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-surface-600);
+  }
+
+  input, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+  }
+
+  input[type="checkbox"] {
+    accent-color: var(--color-accent);
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+  }
+
+  ::selection {
+    background-color: var(--color-accent-glow-strong);
+    color: var(--color-surface-100);
+  }
+
+  input::placeholder {
+    opacity: 0.35;
+  }
+}
+
+/* Pulse glow for active connection dots */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 8px 2px rgba(46, 230, 168, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 18px 4px rgba(46, 230, 168, 0.7);
+  }
+}
+
+@utility animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Gradient progress bar shimmer */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@utility progress-gradient {
+  background: linear-gradient(90deg, var(--color-accent-dim), var(--color-accent), var(--color-accent-hover), var(--color-accent));
+  background-size: 200% 100%;
+  animation: shimmer 2s linear infinite;
+}
