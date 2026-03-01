@@ -14,8 +14,35 @@
   <img src="https://img.shields.io/badge/Wails-v2-DB3552?logo=wails&logoColor=white" alt="Wails"/>
   <img src="https://img.shields.io/badge/Svelte-4-FF3E00?logo=svelte&logoColor=white" alt="Svelte"/>
   <img src="https://img.shields.io/badge/Tailwind-4-06B6D4?logo=tailwindcss&logoColor=white" alt="Tailwind"/>
-  <img src="https://img.shields.io/badge/Platform-Windows-0078D6?logo=windows&logoColor=white" alt="Windows"/>
 </p>
+
+<p align="center">
+  <a href="https://github.com/Gidroponik/S3_GUI/releases/tag/v1.0.0">
+    <img src="https://img.shields.io/badge/Download-v1.0.0-28A745?style=for-the-badge&logo=github&logoColor=white" alt="Download"/>
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/Gidroponik/S3_GUI/releases/tag/v1.0.0">
+    <img src="https://img.shields.io/badge/Windows-amd64-0078D6?style=flat-square&logo=windows&logoColor=white" alt="Windows"/>
+  </a>
+  <a href="https://github.com/Gidroponik/S3_GUI/releases/tag/v1.0.0">
+    <img src="https://img.shields.io/badge/macOS-Universal-000000?style=flat-square&logo=apple&logoColor=white" alt="macOS"/>
+  </a>
+</p>
+
+---
+
+## Скачать
+
+Готовые сборки — не нужно ничего компилировать:
+
+| Платформа | Файл | Архитектура |
+|-----------|------|-------------|
+| <img src="https://img.shields.io/badge/-Windows-0078D6?logo=windows&logoColor=white&style=flat-square" /> | [S3BucketGUI.exe](https://github.com/Gidroponik/S3_GUI/releases/tag/v1.0.0) | amd64 |
+| <img src="https://img.shields.io/badge/-macOS-000000?logo=apple&logoColor=white&style=flat-square" /> | [S3BucketGUI.dmg](https://github.com/Gidroponik/S3_GUI/releases/tag/v1.0.0) | Universal (Intel + Apple Silicon) |
+
+> **[Все релизы →](https://github.com/Gidroponik/S3_GUI/releases)**
 
 ---
 
@@ -66,7 +93,7 @@
 | Desktop | Wails v2 (WebView2) |
 | Шифрование | AES-256-GCM + PBKDF2 (machine-bound key) |
 
-## Сборка
+## Сборка из исходников
 
 ### Требования
 - [Go](https://go.dev/) 1.21+
@@ -80,8 +107,8 @@
 go install github.com/wailsapp/wails/v2/cmd/wails@latest
 
 # Клонирование
-git clone https://github.com/pfrfrfr/S3BucketGUI.git
-cd S3BucketGUI
+git clone https://github.com/Gidroponik/S3_GUI.git
+cd S3_GUI
 
 # Сборка
 wails build
@@ -100,7 +127,8 @@ wails dev
 Все данные хранятся локально:
 
 ```
-%APPDATA%/S3BucketGUI/
+%APPDATA%/S3BucketGUI/          # Windows
+~/Library/Application Support/S3BucketGUI/  # macOS
 ├── connections.dat   # профили (AES-256-GCM)
 └── settings.json     # настройки (plain JSON)
 ```
