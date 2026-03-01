@@ -31,6 +31,10 @@
   </a>
 </p>
 
+<p align="center">
+  <img src="software_preview.jpg" width="800" alt="S3 Bucket Manager Preview"/>
+</p>
+
 ---
 
 ## Скачать
