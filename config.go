@@ -14,8 +14,8 @@ type ConfigStore struct {
 }
 
 func NewConfigStore() *ConfigStore {
-	appData := os.Getenv("APPDATA")
-	if appData == "" {
+	appData, err := os.UserConfigDir()
+	if err != nil {
 		appData = "."
 	}
 	dir := filepath.Join(appData, "S3BucketGUI")
